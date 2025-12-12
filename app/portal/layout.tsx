@@ -11,7 +11,8 @@ import {
   FolderOpen,
   ClipboardList,
   FileStack,
-  PenTool
+  PenTool,
+  AlertTriangle
 } from 'lucide-react';
 
 const tabs = [
@@ -24,6 +25,7 @@ const tabs = [
   { name: 'Exhibits', href: '/portal/exhibits', icon: FolderOpen },
   { name: 'Form Filler', href: '/portal/form-filler', icon: ClipboardList },
   { name: 'Documents', href: '/portal/documents', icon: FileStack },
+  { name: 'RFE Analyzer', href: '/portal/rfe-analyzer', icon: AlertTriangle },
 ];
 
 export default function PortalLayout({

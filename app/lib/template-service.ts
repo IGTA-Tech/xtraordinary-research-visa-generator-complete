@@ -81,6 +81,58 @@ export const FOREIGN_EMPLOYER_FIELDS: TemplateField[] = [
   { name: 'authorizedActivities', label: 'Description of Authorized Activities', type: 'textarea', required: true, placeholder: 'Describe the specific activities the beneficiary will perform...' },
 ];
 
+// Self-Employment fields
+export const SELF_EMPLOYMENT_FIELDS: TemplateField[] = [
+  { name: 'beneficiaryName', label: 'Beneficiary Full Legal Name', type: 'text', required: true },
+  { name: 'professionalName', label: 'Professional/Stage Name', type: 'text', required: false },
+  { name: 'dateOfBirth', label: 'Date of Birth', type: 'date', required: true },
+  { name: 'citizenship', label: 'Country of Citizenship', type: 'text', required: true },
+  { name: 'currentAddress', label: 'Current Address', type: 'textarea', required: true },
+  { name: 'email', label: 'Email', type: 'text', required: true },
+  { name: 'phone', label: 'Phone', type: 'text', required: true },
+  { name: 'fieldOfExpertise', label: 'Field of Extraordinary Ability', type: 'text', required: true },
+  { name: 'professionalTitle', label: 'Professional Title/Designation', type: 'text', required: true },
+
+  // Agent/Petitioner
+  { name: 'agentName', label: 'Agent/Petitioner Name', type: 'text', required: true },
+  { name: 'agentOrganization', label: 'Agent Organization', type: 'text', required: true },
+  { name: 'agentEIN', label: 'Agent EIN/Tax ID', type: 'text', required: true },
+  { name: 'agentAddress', label: 'Agent Address', type: 'textarea', required: true },
+
+  // Foreign Employer
+  { name: 'foreignEmployerName', label: 'Foreign Employer Name (if applicable)', type: 'text', required: false },
+  { name: 'foreignEmployerCountry', label: 'Foreign Employer Country', type: 'text', required: false },
+  { name: 'foreignEmployerRelationship', label: 'Relationship to Beneficiary', type: 'text', required: false },
+
+  // Self-Employment Structure
+  { name: 'businessStructure', label: 'Business Structure', type: 'select', required: true, options: [
+    'Sole Proprietorship',
+    'Single-Member LLC',
+    'Corporation',
+    'Partnership',
+    'Continued Foreign Employment + Self-Employed'
+  ]},
+  { name: 'businessEntityName', label: 'Business Entity Name (if applicable)', type: 'text', required: false },
+  { name: 'selfEmploymentJustification', label: 'Justification for Self-Employment', type: 'textarea', required: true },
+
+  // Activities
+  { name: 'primaryActivities', label: 'Primary Self-Employment Activities', type: 'textarea', required: true },
+  { name: 'secondaryActivities', label: 'Secondary/Incidental Activities', type: 'textarea', required: false },
+  { name: 'primaryWorkLocation', label: 'Primary Work Location(s)', type: 'text', required: true },
+
+  // Financial
+  { name: 'minimumAnnualIncome', label: 'Minimum Expected Annual Income', type: 'text', required: true },
+  { name: 'incomeSourcesBreakdown', label: 'Income Sources Breakdown', type: 'textarea', required: true },
+  { name: 'agentFee', label: 'Agent Commission/Fee', type: 'text', required: false },
+
+  // Duration
+  { name: 'startDate', label: 'Agreement Start Date', type: 'date', required: false },
+  { name: 'endDate', label: 'Agreement End Date', type: 'date', required: false },
+
+  // Governing Law
+  { name: 'governingState', label: 'Governing State', type: 'text', required: true, placeholder: 'e.g., Florida' },
+];
+
 // Multiple Engagement fields (same structure as foreign employer)
 export const MULTIPLE_ENGAGEMENT_FIELDS: TemplateField[] = [
   { name: 'employerName', label: 'Employer/Engager Name', type: 'text', required: true, placeholder: 'Individual or company name' },
@@ -119,6 +171,14 @@ export const TEMPLATES: Template[] = [
     category: 'agreement',
     filePath: 'templates/agreements/multiple-engagement-agreement.md',
     fields: MULTIPLE_ENGAGEMENT_FIELDS,
+  },
+  {
+    id: 'foreign-employer-self-employment',
+    name: 'Foreign Employer Self-Employment Agreement',
+    description: 'Comprehensive agreement for self-employed O-1/P-1 beneficiaries with foreign employer relationships',
+    category: 'agreement',
+    filePath: 'templates/agreements/foreign-employer-self-employment.md',
+    fields: SELF_EMPLOYMENT_FIELDS,
   },
 ];
 
