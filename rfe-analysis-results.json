@@ -1,0 +1,292 @@
+{
+  "results": [
+    {
+      "fileName": "DENIAL INNOVATIVE GLOBAL TALENT AGENCY LLC (1).pdf",
+      "type": "Denial",
+      "receiptNumber": "IOE8060416147",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Advisory Opinion",
+        "Peer Group Organization",
+        "Not Established"
+      ],
+      "textLength": 39999
+    },
+    {
+      "fileName": "IOE8060416147 Request for Evidence (1).pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8060416147",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Advisory Opinion",
+        "Peer Group Organization",
+        "Comparable Evidence",
+        "Not Established"
+      ],
+      "textLength": 28027
+    },
+    {
+      "fileName": "IOE8291782290 - Denial (1).pdf",
+      "type": "Denial",
+      "receiptNumber": "IOE8291782290",
+      "visaType": "P-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Not Established",
+        "Does Not Meet Requirements"
+      ],
+      "textLength": 55040
+    },
+    {
+      "fileName": "IOE8291782290 - RFE (1).pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8291782290",
+      "visaType": "P-1A",
+      "issues": [
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Not Established",
+        "Does Not Meet Requirements"
+      ],
+      "textLength": 44080
+    },
+    {
+      "fileName": "IOE8520954561 - RFE.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8520954561",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Advisory Opinion",
+        "Peer Group Organization",
+        "Totality of Evidence",
+        "Not Established"
+      ],
+      "textLength": 54439
+    },
+    {
+      "fileName": "IOE8582312799 - RFE.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8582312799",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation"
+      ],
+      "textLength": 14009
+    },
+    {
+      "fileName": "IOE8860202012 - Denial (1).pdf",
+      "type": "Denial",
+      "receiptNumber": "IOE8860202012",
+      "visaType": "P-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Not Established"
+      ],
+      "textLength": 55702
+    },
+    {
+      "fileName": "Request for Evidence  IOE8746331263.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8746331263",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Criterion 8: High Salary",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Advisory Opinion",
+        "Peer Group Organization",
+        "Major Significance",
+        "Comparable Evidence",
+        "Totality of Evidence",
+        "Not Established",
+        "Does Not Meet Requirements"
+      ],
+      "textLength": 88921
+    },
+    {
+      "fileName": "Request for Evidence - IOE8774950413.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8774950413",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Major Significance",
+        "Comparable Evidence",
+        "Totality of Evidence",
+        "Not Established",
+        "Does Not Meet Requirements"
+      ],
+      "textLength": 63899
+    },
+    {
+      "fileName": "Request for Evidence IOE8049938115.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8049938115",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim"
+      ],
+      "textLength": 14250
+    },
+    {
+      "fileName": "Request for Evidence IOE8125216861.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8125216861",
+      "visaType": "O-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Sustained National/International Acclaim",
+        "Itinerary Issues",
+        "Compensation Documentation",
+        "Major Significance",
+        "Totality of Evidence",
+        "Not Established"
+      ],
+      "textLength": 26175
+    },
+    {
+      "fileName": "Request for Evidence IOE8860202012.pdf",
+      "type": "RFE",
+      "receiptNumber": "IOE8860202012",
+      "visaType": "P-1A",
+      "issues": [
+        "Extraordinary Ability Documentation",
+        "Itinerary Issues",
+        "Agent Authorization",
+        "Service of Process",
+        "Compensation Documentation",
+        "Not Established"
+      ],
+      "textLength": 36886
+    }
+  ],
+  "summary": {
+    "totalFiles": 12,
+    "rfes": 9,
+    "denials": 3,
+    "commonIssues": [
+      {
+        "issue": "Extraordinary Ability Documentation",
+        "count": 11
+      },
+      {
+        "issue": "Itinerary Issues",
+        "count": 11
+      },
+      {
+        "issue": "Agent Authorization",
+        "count": 10
+      },
+      {
+        "issue": "Service of Process",
+        "count": 10
+      },
+      {
+        "issue": "Compensation Documentation",
+        "count": 10
+      },
+      {
+        "issue": "Not Established",
+        "count": 10
+      },
+      {
+        "issue": "Sustained National/International Acclaim",
+        "count": 8
+      },
+      {
+        "issue": "Advisory Opinion",
+        "count": 4
+      },
+      {
+        "issue": "Peer Group Organization",
+        "count": 4
+      },
+      {
+        "issue": "Does Not Meet Requirements",
+        "count": 4
+      },
+      {
+        "issue": "Totality of Evidence",
+        "count": 4
+      },
+      {
+        "issue": "Comparable Evidence",
+        "count": 3
+      },
+      {
+        "issue": "Major Significance",
+        "count": 3
+      },
+      {
+        "issue": "Criterion 8: High Salary",
+        "count": 1
+      }
+    ],
+    "recommendations": [
+      "Add comprehensive extraordinary ability evidence checklist to templates",
+      "Include comparison to field standards in all agreements",
+      "Strengthen itinerary section with mandatory venue confirmations",
+      "Add date range specifications and amendment notification clause",
+      "Enhance agent authorization language with explicit USCIS filing authority",
+      "Add clause stating agent can represent multiple parties",
+      "Add explicit service of process acceptance clause in all agreements",
+      "Include physical address for service",
+      "Add detailed compensation breakdown table with payment schedule",
+      "Include wage comparison to industry/field standards",
+      "Add documentation of bonus and benefit structures",
+      "Add sustained acclaim documentation section with timeline requirements",
+      "Include media coverage tracking table",
+      "Add peer group organization identification section",
+      "Include advisory opinion requirements checklist",
+      "Add peer group/professional organization membership documentation",
+      "Include membership criteria and selectivity evidence",
+      "Add pre-filing checklist to verify all requirements are met",
+      "Include self-assessment questionnaire",
+      "Add section for documenting major significance with quantifiable metrics",
+      "Include impact statements from industry experts"
+    ]
+  },
+  "analysisDate": "2025-12-12T19:55:13.023Z"
+}
