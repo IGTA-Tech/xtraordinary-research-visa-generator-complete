@@ -1,0 +1,20 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm run start"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[service]
+internalPort = 3000
+
+[[services]]
+name = "web"
+protocol = "http"
+
+[[services.routes]]
+pathPrefix = "/"

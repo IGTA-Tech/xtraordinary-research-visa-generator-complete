@@ -179,11 +179,27 @@ export const generatePetitionFunction = inngest.createFunction(
     // Step 11: Generate Document 8 - Exhibit Guide
     const document8 = await step.run('generate-doc-8', async () => {
       console.log(`[Inngest] Step 11: Generating Document 8`);
-      await updateProgress('Document 8', 90, 'Generating Exhibit Assembly Guide...');
+      await updateProgress('Document 8', 85, 'Generating Exhibit Assembly Guide...');
       return await generateDocument8(preparedInfo as BeneficiaryInfo, prepData as PreparationData, document4);
     });
 
-    // Step 12: Save to database
+    // Step 12: Generate Document 9 - USCIS Officer Rating
+    const document9 = await step.run('generate-doc-9', async () => {
+      console.log(`[Inngest] Step 12: Generating Document 9`);
+      await updateProgress('Document 9', 92, 'Generating USCIS Officer Rating Report...');
+      const { generateDoc9 } = await import('../doc9-officer-rating');
+      return await generateDoc9(
+        {
+          beneficiaryName: preparedInfo.fullName,
+          visaType: preparedInfo.visaType as 'O-1A' | 'O-1B' | 'P-1A' | 'EB-1A' | 'EB-2 NIW',
+          field: preparedInfo.profession,
+        },
+        document1,
+        prepData.knowledgeBase || ''
+      );
+    });
+
+    // Step 13: Save to database
     await step.run('save-documents', async () => {
       console.log(`[Inngest] Step 12: Saving documents`);
       await updateProgress('Saving', 95, 'Saving documents to database...');
@@ -202,6 +218,7 @@ export const generatePetitionFunction = inngest.createFunction(
         { number: 6, name: 'USCIS Cover Letter', type: 'letter', content: document6 },
         { number: 7, name: 'Visa Checklist', type: 'checklist', content: document7 },
         { number: 8, name: 'Exhibit Assembly Guide', type: 'guide', content: document8 },
+        { number: 9, name: 'USCIS Officer Rating Report', type: 'rating', content: document9 },
       ];
 
       for (const doc of documents) {
