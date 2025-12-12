@@ -6,8 +6,9 @@ const anthropic = new Anthropic({
 });
 
 interface AgreementRequest {
-  agreementType: 'representation' | 'deal-memo' | 'sponsorship' | 'consultation' | 'agent';
+  agreementType: 'representation' | 'deal-memo' | 'sponsorship' | 'consultation' | 'agent' | 'multiple-employer' | 'foreign-employer' | 'self-employment';
   data: Record<string, string>;
+  templateContent?: string; // Optional user-provided template
 }
 
 const agreementPrompts: Record<string, (data: Record<string, string>) => string> = {
@@ -114,7 +115,143 @@ Create an agent petition agreement that includes:
 9. Reporting Requirements
 10. Signature Blocks
 
-Format as a professional agent representation agreement for USCIS filing.`
+Format as a professional agent representation agreement for USCIS filing.`,
+
+  'multiple-employer': (data) => `Generate a professional Multiple Employer Agreement for visa petitions with concurrent employment.
+
+Beneficiary: ${data.beneficiary || '[BENEFICIARY NAME]'}
+Primary Employer: ${data.primaryEmployer || '[PRIMARY EMPLOYER]'}
+Secondary Employers: ${data.secondaryEmployers || '[SECONDARY EMPLOYERS - comma separated]'}
+Work Allocation: ${data.workAllocation || '[WORK ALLOCATION - e.g., 60%/40%]'}
+Compensation: ${data.compensation || '[TOTAL COMPENSATION]'}
+Visa Type: ${data.visaType || 'O-1A'}
+
+Create a comprehensive multiple employer agreement that includes:
+1. Parties to the Agreement (All Employers and Beneficiary)
+2. Primary vs Secondary Employer Designations
+3. Work Allocation and Scheduling
+   - Hours per week with each employer
+   - Work location for each employer
+   - Remote vs on-site requirements
+4. Compensation Structure
+   - Salary from each employer
+   - Benefits allocation
+   - Tax withholding responsibilities
+5. Visa Sponsorship Responsibilities
+   - Which employer is primary petitioner
+   - Cost sharing for filing fees
+   - Amendment requirements if work allocation changes
+6. Coordination Requirements
+   - Communication between employers
+   - Schedule conflict resolution
+   - Performance review process
+7. Compliance Provisions
+   - USCIS notification requirements
+   - Material change reporting
+   - Maintaining status requirements
+8. Termination Provisions
+   - Effect on visa if one employment ends
+   - Notice requirements
+9. Governing Law
+10. Signature Blocks for ALL parties
+
+Format as a professional multi-party employment agreement suitable for USCIS filing.`,
+
+  'foreign-employer': (data) => `Generate a professional Foreign Employer Agreement for O/P visa petitions.
+
+Foreign Employer: ${data.foreignEmployer || '[FOREIGN EMPLOYER NAME]'}
+Foreign Country: ${data.foreignCountry || '[COUNTRY]'}
+Beneficiary: ${data.beneficiary || '[BENEFICIARY NAME]'}
+U.S. Agent: ${data.usAgent || '[U.S. AGENT NAME]'}
+Work Location(s): ${data.workLocation || '[U.S. WORK LOCATIONS]'}
+Duration: ${data.duration || '[DURATION OF ACTIVITIES]'}
+Compensation: ${data.compensation || '[COMPENSATION]'}
+
+Create a comprehensive foreign employer agreement that includes:
+1. Parties to the Agreement
+   - Foreign employer details and registration
+   - U.S. agent details and authority
+   - Beneficiary information
+2. Nature of Foreign Employment
+   - Current position with foreign employer
+   - Continuing relationship during U.S. activities
+3. U.S. Activities Description
+   - Specific events, performances, or work
+   - Venues and locations
+   - Dates and itinerary
+4. U.S. Agent's Role and Authority
+   - Filing authority
+   - Communication with USCIS
+   - Accepting service of process
+5. Compensation Arrangements
+   - Who pays (foreign employer vs U.S. venues)
+   - Currency and payment method
+   - Tax obligations in both countries
+6. Compliance with U.S. Immigration Law
+   - Maintaining valid status
+   - Restrictions on unauthorized employment
+   - Departure requirements
+7. Insurance and Liability
+   - Workers' compensation (if applicable)
+   - Liability insurance for events
+8. Communication Protocol
+   - Between foreign employer and U.S. agent
+   - Emergency contacts
+9. Term and Termination
+10. Governing Law (both jurisdictions)
+11. Signature Blocks for ALL parties
+
+Format as a professional international employment agreement suitable for USCIS O or P visa filing.`,
+
+  'self-employment': (data) => `Generate a professional Self-Employment Agreement structure for self-petitioned visa cases.
+
+Beneficiary: ${data.beneficiary || '[BENEFICIARY NAME]'}
+Business Entity: ${data.businessEntity || '[BUSINESS ENTITY NAME, if any]'}
+Business Type: ${data.businessType || '[Sole Proprietor/LLC/Corporation]'}
+Field of Work: ${data.fieldOfWork || '[FIELD]'}
+Projected Income: ${data.projectedIncome || '[PROJECTED ANNUAL INCOME]'}
+Visa Type: ${data.visaType || 'O-1A'}
+
+Create a comprehensive self-employment arrangement document that includes:
+1. Overview of Self-Employment Structure
+   - Business entity formation (if applicable)
+   - Nature of self-employment activities
+   - Field and industry classification
+2. Beneficiary's Qualifications
+   - Extraordinary ability credentials
+   - Why self-employment is appropriate
+   - Comparison to traditional employment
+3. Business Plan Summary
+   - Services/products offered
+   - Target clients/market
+   - Revenue model
+4. Financial Projections
+   - Projected income
+   - Business expenses
+   - How beneficiary will support themselves
+5. Evidence of Contracts/Engagements
+   - Existing client contracts
+   - Letters of intent
+   - Ongoing projects
+6. U.S. Business Presence
+   - Business registration
+   - Office/workspace arrangements
+   - Professional memberships
+7. Compliance Commitments
+   - Tax filing obligations
+   - Business licensing
+   - Professional certifications
+8. Continuation of Extraordinary Work
+   - How self-employment furthers the field
+   - Benefit to U.S. interests
+   - National importance (for EB-2 NIW)
+9. Support Documentation List
+   - Required exhibits
+   - Financial evidence
+   - Client testimonials
+10. Declaration and Signature
+
+Format as a professional self-employment declaration/arrangement document suitable for USCIS extraordinary ability or national interest waiver petitions.`
 };
 
 export async function POST(request: NextRequest) {

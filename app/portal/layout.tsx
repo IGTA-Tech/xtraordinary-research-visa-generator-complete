@@ -10,12 +10,14 @@ import {
   Calendar,
   FolderOpen,
   ClipboardList,
-  FileStack
+  FileStack,
+  PenTool
 } from 'lucide-react';
 
 const tabs = [
   { name: 'Dashboard', href: '/portal/dashboard', icon: LayoutDashboard },
   { name: 'Petitions', href: '/portal/petitions', icon: FileText },
+  { name: 'Petition Letters', href: '/portal/petition-letters', icon: PenTool },
   { name: 'Agreements', href: '/portal/agreements', icon: Handshake },
   { name: 'Support Letters', href: '/portal/support-letters', icon: Mail },
   { name: 'Itineraries', href: '/portal/itineraries', icon: Calendar },

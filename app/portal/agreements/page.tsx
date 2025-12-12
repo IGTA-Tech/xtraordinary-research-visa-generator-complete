@@ -8,31 +8,57 @@ const agreementTypes = [
     id: 'representation',
     name: 'Representation Agreement',
     description: 'Standard attorney-client representation agreement for visa petition services',
-    fields: ['clientName', 'visaType', 'fee', 'paymentTerms']
+    fields: ['clientName', 'visaType', 'fee', 'paymentTerms'],
+    category: 'legal'
   },
   {
     id: 'deal-memo',
     name: 'Deal Memo',
     description: 'Agreement between petitioner and beneficiary outlining terms of employment/engagement',
-    fields: ['petitioner', 'beneficiary', 'position', 'compensation', 'duration']
+    fields: ['petitioner', 'beneficiary', 'position', 'compensation', 'duration'],
+    category: 'employment'
   },
   {
     id: 'sponsorship',
     name: 'Sponsorship Agreement',
     description: 'Employer sponsorship commitment for visa petition support',
-    fields: ['employer', 'employee', 'position', 'startDate', 'terms']
+    fields: ['employer', 'employee', 'position', 'startDate', 'terms'],
+    category: 'employment'
   },
   {
     id: 'consultation',
     name: 'Consultation Agreement',
     description: 'Initial consultation and case evaluation agreement',
-    fields: ['clientName', 'consultationFee', 'scope']
+    fields: ['clientName', 'consultationFee', 'scope'],
+    category: 'legal'
   },
   {
     id: 'agent',
     name: 'Agent Agreement',
     description: 'Agreement for P-1A/O-1B petitions filed by agents on behalf of multiple employers',
-    fields: ['agentName', 'beneficiary', 'employers', 'eventDetails']
+    fields: ['agentName', 'beneficiary', 'employers', 'eventDetails'],
+    category: 'agent'
+  },
+  {
+    id: 'multiple-employer',
+    name: 'Multiple Employer Agreement',
+    description: 'Agreement for cases with multiple U.S. employers sponsoring the same beneficiary',
+    fields: ['beneficiary', 'primaryEmployer', 'secondaryEmployers', 'workAllocation', 'compensation', 'visaType'],
+    category: 'employment'
+  },
+  {
+    id: 'foreign-employer',
+    name: 'Foreign Employer Agreement',
+    description: 'Agreement with foreign employer for O/P visa petitions with international components',
+    fields: ['foreignEmployer', 'foreignCountry', 'beneficiary', 'usAgent', 'workLocation', 'duration', 'compensation'],
+    category: 'international'
+  },
+  {
+    id: 'self-employment',
+    name: 'Self-Employment Agreement',
+    description: 'Agreement structure for self-petitioned cases (O-1A, EB-1A, EB-2 NIW)',
+    fields: ['beneficiary', 'businessEntity', 'businessType', 'fieldOfWork', 'projectedIncome', 'visaType'],
+    category: 'self-petition'
   }
 ];
 
