@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visa Exhibit Generator</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #1f77b4 0%, #1565c0 100%);
+      color: white;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 1.3em;
+      color: #333;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #1f77b4;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #1f77b4;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .btn {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #1f77b4 0%, #1565c0 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(31, 119, 180, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(31, 119, 180, 0.4);
+    }
+
+    .btn-primary:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: #5a6268;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #1f77b4;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    .success-box {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .error-box {
+      background: #f8d7da;
+      border-left: 4px solid #dc3545;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .progress-container {
+      display: none;
+      margin: 20px 0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 30px;
+      background: #e0e0e0;
+      border-radius: 15px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #1f77b4 0%, #1565c0 100%);
+      width: 0%;
+      transition: width 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+    }
+
+    .file-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 15px;
+      background: #f9f9f9;
+    }
+
+    .file-item {
+      padding: 8px;
+      margin-bottom: 5px;
+      background: white;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .file-item::before {
+      content: "📄";
+      font-size: 1.2em;
+    }
+
+    .results {
+      display: none;
+      margin-top: 30px;
+      padding: 20px;
+      background: #f0f8ff;
+      border-radius: 6px;
+    }
+
+    .result-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .result-link {
+      padding: 12px;
+      background: white;
+      border-radius: 6px;
+      text-decoration: none;
+      color: #1f77b4;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s;
+    }
+
+    .result-link:hover {
+      background: #e3f2fd;
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #1f77b4;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📄 Visa Exhibit Generator</h1>
+      <p>Create professional numbered exhibit packages from Google Drive folders</p>
+    </div>
+
+    <div class="content">
+      <!-- Folder Selection -->
+      <div class="section">
+        <h2 class="section-title">1. Select Google Drive Folder</h2>
+
+        <div class="form-group">
+          <label for="folderUrl">Google Drive Folder URL or ID:</label>
+          <input
+            type="text"
+            id="folderUrl"
+            placeholder="https://drive.google.com/drive/folders/... or folder ID"
+          >
+        </div>
+
+        <button class="btn btn-secondary" onclick="previewFolder()">
+          Preview Folder Contents
+        </button>
+
+        <div id="folderPreview" class="file-list" style="display: none; margin-top: 20px;">
+          <!-- Files will be listed here -->
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="section">
+        <h2 class="section-title">2. Configuration Options</h2>
+
+        <div class="form-group">
+          <label for="caseName">Case Name/ID:</label>
+          <input
+            type="text"
+            id="caseName"
+            placeholder="e.g., Smith_O1_Visa_2024"
+            value="Exhibit_Package"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="beneficiaryName">Beneficiary Name (Optional):</label>
+          <input
+            type="text"
+            id="beneficiaryName"
+            placeholder="e.g., John Smith"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="numberingStyle">Exhibit Numbering Style:</label>
+          <select id="numberingStyle">
+            <option value="letters">Letters (A, B, C...)</option>
+            <option value="numbers">Numbers (1, 2, 3...)</option>
+            <option value="roman">Roman (I, II, III...)</option>
+          </select>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="recursive" checked>
+          <label for="recursive" style="margin: 0;">Include subfolders (recursive)</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="includeTOC" checked>
+          <label for="includeTOC" style="margin: 0;">Generate Table of Contents</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="mergeAll" checked>
+          <label for="mergeAll" style="margin: 0;">Create combined package document</label>
+        </div>
+      </div>
+
+      <!-- Info Box -->
+      <div class="info-box">
+        <strong>💡 How it works:</strong>
+        <ul style="margin-top: 10px; margin-left: 20px;">
+          <li>All PDF files in the folder will be numbered sequentially</li>
+          <li>Numbered copies will be created in a new folder</li>
+          <li>A Table of Contents will list all exhibits</li>
+          <li>Original files remain unchanged</li>
+        </ul>
+      </div>
+
+      <!-- Generate Button -->
+      <button
+        class="btn btn-primary btn-block"
+        id="generateBtn"
+        onclick="generateExhibits()"
+      >
+        🚀 Generate Exhibit Package
+      </button>
+
+      <!-- Progress -->
+      <div class="progress-container" id="progressContainer">
+        <p style="margin-bottom: 10px; font-weight: 600;">Generating exhibits...</p>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill">0%</div>
+        </div>
+      </div>
+
+      <!-- Loader -->
+      <div class="loader" id="loader"></div>
+
+      <!-- Success Message -->
+      <div class="success-box" id="successBox">
+        <h3 style="margin-bottom: 10px;">✅ Exhibit Package Generated Successfully!</h3>
+        <p id="successMessage"></p>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-box" id="errorBox">
+        <h3 style="margin-bottom: 10px;">❌ Error</h3>
+        <p id="errorMessage"></p>
+      </div>
+
+      <!-- Results -->
+      <div class="results" id="results">
+        <h3 style="margin-bottom: 15px;">📦 Generated Files:</h3>
+        <div class="result-links" id="resultLinks">
+          <!-- Links will be added here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Preview folder contents
+    function previewFolder() {
+      const folderUrl = document.getElementById('folderUrl').value;
+      if (!folderUrl) {
+        alert('Please enter a folder URL or ID');
+        return;
+      }
+
+      showLoader(true);
+      hideMessages();
+
+      google.script.run
+        .withSuccessHandler(function(result) {
+          showLoader(false);
+          if (result.success) {
+            displayFolderPreview(result.files);
+          } else {
+            showError(result.error);
+          }
+        })
+        .withFailureHandler(function(error) {
+          showLoader(false);
+          showError(error.message);
+        })
+        .listFolderFiles(folderUrl, document.getElementById('recursive').checked);
+    }
+
+    // Display folder preview
+    function displayFolderPreview(files) {
+      const preview = document.getElementById('folderPreview');
+      preview.innerHTML = '<p style="margin-bottom: 10px;"><strong>Found ' + files.length + ' PDF files:</strong></p>';
+
+      if (files.length === 0) {
+        preview.innerHTML += '<p style="color: #666;">No PDF files found in this folder.</p>';
+      } else {
+        files.forEach(function(file, index) {
+          const item = document.createElement('div');
+          item.className = 'file-item';
+          item.textContent = file.path || file.name;
+          preview.appendChild(item);
+        });
+      }
+
+      preview.style.display = 'block';
+    }
+
+    // Generate exhibits
+    function generateExhibits() {
+      const folderUrl = document.getElementById('folderUrl').value;
+      if (!folderUrl) {
+        alert('Please enter a folder URL or ID');
+        return;
+      }
+
+      const options = {
+        caseName: document.getElementById('caseName').value,
+        beneficiaryName: document.getElementById('beneficiaryName').value,
+        numberingStyle: document.getElementById('numberingStyle').value,
+        recursive: document.getElementById('recursive').checked,
+        includeTOC: document.getElementById('includeTOC').checked,
+        mergeAll: document.getElementById('mergeAll').checked,
+        fileTypes: ['application/pdf']
+      };
+
+      // Disable button
+      const btn = document.getElementById('generateBtn');
+      btn.disabled = true;
+      btn.textContent = 'Generating...';
+
+      showLoader(true);
+      showProgress(true);
+      hideMessages();
+      document.getElementById('results').style.display = 'none';
+
+      // Extract folder ID
+      const folderId = extractFolderId(folderUrl);
+
+      // Call backend
+      google.script.run
+        .withSuccessHandler(function(result) {
+          showLoader(false);
+          showProgress(false);
+          btn.disabled = false;
+          btn.textContent = '🚀 Generate Exhibit Package';
+
+          if (result.success) {
+            showSuccess(result);
+            displayResults(result);
+          } else {
+            showError(result.error);
+          }
+        })
+        .withFailureHandler(function(error) {
+          showLoader(false);
+          showProgress(false);
+          btn.disabled = false;
+          btn.textContent = '🚀 Generate Exhibit Package';
+          showError(error.message);
+        })
+        .generateExhibitPackage(folderId, options);
+    }
+
+    // Extract folder ID from URL
+    function extractFolderId(folderIdOrUrl) {
+      if (folderIdOrUrl.indexOf('/folders/') !== -1) {
+        return folderIdOrUrl.split('/folders/')[1].split('?')[0];
+      } else if (folderIdOrUrl.indexOf('id=') !== -1) {
+        return folderIdOrUrl.split('id=')[1].split('&')[0];
+      } else {
+        return folderIdOrUrl;
+      }
+    }
+
+    // Display results
+    function displayResults(result) {
+      const resultsDiv = document.getElementById('results');
+      const linksDiv = document.getElementById('resultLinks');
+      linksDiv.innerHTML = '';
+
+      // Output folder
+      linksDiv.innerHTML += createResultLink(
+        '📁 Open Output Folder',
+        result.outputFolderUrl
+      );
+
+      // Table of Contents
+      if (result.tocUrl) {
+        linksDiv.innerHTML += createResultLink(
+          '📋 Table of Contents',
+          result.tocUrl
+        );
+      }
+
+      // Merged PDF
+      if (result.mergedPdfUrl) {
+        linksDiv.innerHTML += createResultLink(
+          '📦 Combined Package',
+          result.mergedPdfUrl
+        );
+      }
+
+      resultsDiv.style.display = 'block';
+    }
+
+    // Create result link HTML
+    function createResultLink(text, url) {
+      return '<a href="' + url + '" target="_blank" class="result-link">' +
+             '<span>' + text + '</span>' +
+             '<span>→</span>' +
+             '</a>';
+    }
+
+    // Show/hide loader
+    function showLoader(show) {
+      document.getElementById('loader').style.display = show ? 'block' : 'none';
+    }
+
+    // Show/hide progress
+    function showProgress(show) {
+      document.getElementById('progressContainer').style.display = show ? 'block' : 'none';
+      if (show) {
+        // Simulate progress
+        let progress = 0;
+        const interval = setInterval(function() {
+          progress += 5;
+          if (progress > 90) {
+            clearInterval(interval);
+          }
+          updateProgress(progress);
+        }, 500);
+      }
+    }
+
+    // Update progress bar
+    function updateProgress(percent) {
+      const fill = document.getElementById('progressFill');
+      fill.style.width = percent + '%';
+      fill.textContent = percent + '%';
+    }
+
+    // Show success message
+    function showSuccess(result) {
+      const box = document.getElementById('successBox');
+      const message = document.getElementById('successMessage');
+      message.textContent = 'Created ' + result.totalExhibits + ' numbered exhibits. Check the output folder for all files.';
+      box.style.display = 'block';
+    }
+
+    // Show error message
+    function showError(error) {
+      const box = document.getElementById('errorBox');
+      const message = document.getElementById('errorMessage');
+      message.textContent = error;
+      box.style.display = 'block';
+    }
+
+    // Hide all messages
+    function hideMessages() {
+      document.getElementById('successBox').style.display = 'none';
+      document.getElementById('errorBox').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

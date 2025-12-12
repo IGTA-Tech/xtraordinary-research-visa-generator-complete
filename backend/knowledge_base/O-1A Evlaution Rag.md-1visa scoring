@@ -1,0 +1,1033 @@
+const webhookData = $input.first().json;
+
+
+
+const scoringLogic = {
+
+  evaluationPaths: [
+
+    {
+
+      pathType: "major_award",
+
+      criteria: [
+
+        {
+
+          id: "O1A-0",
+
+          name: "Major International Award",
+
+          maxPoints: 25,
+
+          description: "Receipt of a major, internationally recognized award contributes significantly but does not automatically qualify.",
+
+          evidenceTypes: [
+
+            "Award certificate",
+
+            "Documentation of award significance",
+
+            "Media coverage of award",
+
+            "Evidence of international recognition",
+
+            "Information about selection process",
+
+            "Letter from awarding organization"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Award certificate/official notice", weight: "Required" },
+
+            { type: "Documentation of award significance", weight: "20%" }, // Reduced from 25%
+
+            { type: "Media coverage", weight: "20%" }, // Reduced from 25%
+
+            { type: "Evidence of international recognition", weight: "20%" }, // Reduced from 25%
+
+            { type: "Selection process documentation", weight: "10%" }, // Reduced from 15%
+
+            { type: "Letter from awarding authority", weight: "5%" } // Reduced from 10%
+
+          ]
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      pathType: "standard_criteria",
+
+      requirement: "Satisfy at least three of the following eight criteria.",
+
+      criteria: [
+
+        {
+
+          id: "O1A-1",
+
+          name: "Nationally/Internationally Recognized Prizes/Awards",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Awards must be competitive, selective, and judged by experts.",
+
+          evidenceTypes: [
+
+            "Award certificates",
+
+            "Documentation of award significance/prestige",
+
+            "Evidence of competitive selection process",
+
+            "Media coverage of award ceremony/announcement",
+
+            "Letters from awarding organizations",
+
+            "Information about previous recipients",
+
+            "Documentation of award's international recognition"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Award certificates", weight: "15%" }, // Reduced from 20%
+
+            { type: "Evidence of competitive selection process", weight: "Required" },
+
+            { type: "Documentation of award significance", weight: "15%" }, // Reduced from 20%
+
+            { type: "Media coverage", weight: "10%" }, // Reduced from 15%
+
+            { type: "Letters from awarding organizations", weight: "10%" }, // Reduced from 15%
+
+            { type: "Information about previous recipients", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of international recognition", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-2",
+
+          name: "Membership in Associations Requiring Outstanding Achievement",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Memberships must be in associations requiring outstanding achievement, judged by experts.",
+
+          evidenceTypes: [
+
+            "Membership certificates/cards",
+
+            "Documentation of association's selection criteria",
+
+            "Evidence that membership requires outstanding achievement",
+
+            "Bylaws or rules showing exclusive nature of membership",
+
+            "Letters from association officials",
+
+            "Evidence of evaluation by experts",
+
+            "Documentation of association's prestige"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Membership proof", weight: "15%" }, // Reduced from 20%
+
+            { type: "Basic membership", weight: "10%" }, // Reduced from 20%
+
+            { type: "Association's selection criteria", weight: "15%" }, // Reduced from 20%
+
+            { type: "Evidence of achievement requirement", weight: "Required" },
+
+            { type: "Bylaws/rules on exclusivity", weight: "10%" }, // Reduced from 15%
+
+            { type: "Letters from association officials", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of expert evaluation", weight: "5%" }, // Reduced from 10%
+
+            { type: "Documentation of association prestige", weight: "5%" }
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-3",
+
+          name: "Published Material About the Beneficiary",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Media coverage must focus on the beneficiary.",
+
+          evidenceTypes: [
+
+            "Complete copies of articles/publications",
+
+            "Evidence of publication significance (circulation data, impact factor)",
+
+            "Translations with certification (if applicable)",
+
+            "Documentation that material focuses on beneficiary",
+
+            "Evidence of author's credentials",
+
+            "Publication metadata (date, author, title)",
+
+            "Evidence of media outlet prestige"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Complete publication copies", weight: "20%" }, // Reduced from 25%
+
+            { type: "Basic coverage", weight: "5%" }, // Reduced from 10%
+
+            { type: "Publication significance evidence", weight: "10%" }, // Reduced from 15%
+
+            { type: "Focus on beneficiary", weight: "10%" }, // Reduced from 15%
+
+            { type: "Author credentials", weight: "5%" }, // Reduced from 10%
+
+            { type: "Publication metadata", weight: "5%" }, // Reduced from 10%
+
+            { type: "Media outlet prestige", weight: "5%" }
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-4",
+
+          name: "Judging the Work of Others",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Judging roles must be significant.",
+
+          evidenceTypes: [
+
+            "Invitation letters to serve as judge",
+
+            "Program materials listing beneficiary as judge",
+
+            "Documentation of selection criteria for judges",
+
+            "Evidence of event/competition prestige",
+
+            "Letters confirming judging role",
+
+            "Peer review evidence (journal reviews)",
+
+            "Grant review panel documentation",
+
+            "Editorial board appointments"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Official invitation/appointment documents", weight: "25%" }, // Reduced from 30%
+
+            { type: "Limited judging role", weight: "5%" }, // Reduced from 10%
+
+            { type: "Program materials", weight: "10%" }, // Reduced from 15%
+
+            { type: "Judge selection criteria", weight: "10%" }, // Reduced from 15%
+
+            { type: "Event/competition prestige", weight: "5%" },
+
+            { type: "Confirmation letters", weight: "5%" }, // Reduced from 10%
+
+            { type: "Documentation of specialized knowledge", weight: "5%" }
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-5",
+
+          name: "Original Contributions of Major Significance",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Contributions must be original and significant.",
+
+          evidenceTypes: [
+
+            "Expert letters describing contributions",
+
+            "Patents and commercialization evidence",
+
+            "Citation indices and patterns",
+
+            "Documentation of implementation by others",
+
+            "Evidence of influence on field direction",
+
+            "Testimonials from independent experts",
+
+            "Media coverage of contributions",
+
+            "Commercial success metrics",
+
+            "Policy impacts"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Expert letters from independent sources", weight: "20%" }, // Reduced from 25%
+
+            { type: "Notable contribution", weight: "5%" }, // Reduced from 10%
+
+            { type: "Patents/intellectual property", weight: "10%" }, // Reduced from 15%
+
+            { type: "Citation evidence", weight: "10%" }, // Reduced from 15%
+
+            { type: "Implementation evidence", weight: "5%" }, // Reduced from 10%
+
+            { type: "Field direction influence", weight: "5%" }, // Reduced from 10%
+
+            { type: "Commercial/practical impact metrics", weight: "5%" }
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-6",
+
+          name: "Authorship of Scholarly Articles",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Articles must be scholarly and impactful.",
+
+          evidenceTypes: [
+
+            "Complete copies of articles",
+
+            "Journal/publication impact factors",
+
+            "Citation data for articles",
+
+            "Evidence of peer review process",
+
+            "Documentation of authorship role",
+
+            "Publication acceptance rates",
+
+            "Evidence of journal/publication prestige",
+
+            "Invited article documentation"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Complete article copies", weight: "15%" }, // Reduced from 20%
+
+            { type: "Basic publication", weight: "40%" }, // Reduced from 45%
+
+            { type: "Journal/publication impact factors", weight: "10%" }, // Reduced from 15%
+
+            { type: "Citation metrics", weight: "5%" }, // Reduced from 10%
+
+            { type: "Peer review evidence", weight: "5%" }, // Reduced from 10%
+
+            { type: "Authorship role clarification", weight: "5%" }, // Reduced from 10%
+
+            { type: "Publication prestige evidence", weight: "5%" }
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-7",
+
+          name: "Employment in Critical/Essential Capacity",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "Roles must be critical and at distinguished organizations.",
+
+          evidenceTypes: [
+
+            "Employment verification letters",
+
+            "Organization charts showing position",
+
+            "Evidence of organization's distinguished reputation",
+
+            "Documentation of role's critical nature",
+
+            "Letters describing accomplishments in role",
+
+            "Project success metrics under leadership",
+
+            "Team size/budget responsibility evidence",
+
+            "Organization awards/recognition"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Employment verification", weight: "15%" }, // Reduced from 20%
+
+            { type: "Junior role at reputable institution", weight: "10%" }, // Reduced from 20%
+
+            { type: "Organization reputation evidence", weight: "10%" }, // Reduced from 15%
+
+            { type: "Position description", weight: "10%" }, // Reduced from 15%
+
+            { type: "Organizational structure documentation", weight: "5%" }, // Reduced from 10%
+
+            { type: "Letters from superiors", weight: "5%" }, // Reduced from 10%
+
+            { type: "Role significance evidence", weight: "5%" }, // Reduced from 10%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-8",
+
+          name: "High Salary/Remuneration",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          description: "High salary must be demonstrated with comparative data.",
+
+          evidenceTypes: [
+
+            "Salary verification (offer letters, contracts)",
+
+            "Tax returns/W-2 forms",
+
+            "Comparative salary data for field",
+
+            "Geographic-specific salary comparisons",
+
+            "Letters from industry experts on compensation",
+
+            "Bureau of Labor Statistics data",
+
+            "Industry salary surveys",
+
+            "Evidence of additional compensation (equity, etc.)"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Salary verification documents", weight: "15%" }, // Reduced from 20%
+
+            { type: "Basic compensation evidence", weight: "10%" }, // Reduced from 20%
+
+            { type: "Comparative salary data", weight: "15%" }, // Reduced from 20%
+
+            { type: "Geographic-specific comparisons", weight: "10%" }, // Reduced from 15%
+
+            { type: "Expert letters on compensation", weight: "5%" }, // Reduced from 10%
+
+            { type: "BLS or official statistics", weight: "5%" }, // Reduced from 10%
+
+            { type: "Industry surveys", weight: "5%" }
+
+          ]
+
+        }
+
+      ]
+
+    },
+
+    {
+
+      pathType: "comparable_evidence",
+
+      requirement: "Used when standard criteria do not readily apply; must satisfy at least three comparable criteria.",
+
+      criteria: [
+
+        {
+
+          id: "O1A-C1",
+
+          originalCriterion: "Prizes/Awards",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Recognition in fields without formal awards",
+
+            "Selection for elite programs/residencies",
+
+            "Competitive grants/fellowships",
+
+            "Ranked placements in significant competitions",
+
+            "Special designations by industry groups",
+
+            "Funded research proposals with low acceptance rates"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Documentation of recognition", weight: "Required" },
+
+            { type: "Evidence of competitive selection", weight: "20%" }, // Reduced from 25%
+
+            { type: "Prestige of recognizing entity", weight: "20%" }, // Reduced from 25%
+
+            { type: "Selectivity metrics", weight: "15%" }, // Reduced from 20%
+
+            { type: "Field expert letters", weight: "10%" }, // Reduced from 15%
+
+            { type: "Comparative significance evidence", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C2",
+
+          originalCriterion: "Membership in Associations",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Invitation to exclusive research groups",
+
+            "Selection for limited-access platforms/communities",
+
+            "Invitation-only think tanks or consortia",
+
+            "Access to restricted facilities/resources",
+
+            "Special clearances or credentials",
+
+            "Exclusive professional networks with vetting"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Documentation of exclusive access", weight: "Required" },
+
+            { type: "Selectivity of group/platform", weight: "20%" }, // Reduced from 25%
+
+            { type: "Vetting process evidence", weight: "20%" }, // Reduced from 25%
+
+            { type: "Reputation of organizing entity", weight: "15%" }, // Reduced from 20%
+
+            { type: "Expert confirmation letters", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of exclusive nature", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C3",
+
+          originalCriterion: "Published Material",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Online platforms with significant followings",
+
+            "Specialized industry databases/references",
+
+            "Case studies featuring the beneficiary",
+
+            "Industry standard documentation citing work",
+
+            "Inclusion in educational materials/curricula",
+
+            "Digital media with verifiable metrics",
+
+            "Product documentation referencing contributions"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Complete documentation", weight: "Required" },
+
+            { type: "Platform/venue significance", weight: "20%" }, // Reduced from 25%
+
+            { type: "Focus on beneficiary", weight: "15%" }, // Reduced from 20%
+
+            { type: "Audience/reach metrics", weight: "15%" }, // Reduced from 20%
+
+            { type: "Expert verification letters", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of recognition quality", weight: "5%" } // Reduced from 10%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C4",
+
+          originalCriterion: "Judging Work of Others",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Technical mentorship programs with selection",
+
+            "Code/design review responsibilities",
+
+            "Technology stack decision authority",
+
+            "Quality assurance gate responsibilities",
+
+            "Security review authority",
+
+            "Incubator/accelerator selection committees",
+
+            "Product/feature approval authority"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Official authorization documentation", weight: "Required" },
+
+            { type: "Selection for evaluation role", weight: "20%" }, // Reduced from 25%
+
+            { type: "Impact of evaluation decisions", weight: "20%" }, // Reduced from 25%
+
+            { type: "Specialized expertise requirement", weight: "10%" }, // Reduced from 15%
+
+            { type: "Scope of evaluation authority", weight: "10%" }, // Reduced from 15%
+
+            { type: "Organization reputation", weight: "5%" } // Reduced from 10%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C5",
+
+          originalCriterion: "Original Contributions",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "User adoption metrics for innovations",
+
+            "Industry standard proposals/implementations",
+
+            "Performance improvements with metrics",
+
+            "Technical debt reduction measurements",
+
+            "System reliability improvements",
+
+            "Cost reduction innovations",
+
+            "Process optimization metrics",
+
+            "Security vulnerability discoveries"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Contribution documentation", weight: "Required" },
+
+            { type: "Adoption/implementation evidence", weight: "20%" }, // Reduced from 25%
+
+            { type: "Measurable impact metrics", weight: "20%" }, // Reduced from 25%
+
+            { type: "Independent verification", weight: "5%" }, // Reduced from 10%
+
+            { type: "Field expert testimonials", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of originality", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C6",
+
+          originalCriterion: "Scholarly Articles",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Open-source contributions with wide adoption",
+
+            "Technical documentation with high impact",
+
+            "White papers with industry influence",
+
+            "Product specifications defining standards",
+
+            "Technical blog posts with significant readership",
+
+            "Data visualizations with educational impact",
+
+            "Technical talks with substantial viewership"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Complete contribution documentation", weight: "Required" },
+
+            { type: "Adoption/usage metrics", weight: "20%" }, // Reduced from 25%
+
+            { type: "Impact measurements", weight: "15%" }, // Reduced from 20%
+
+            { type: "Peer recognition evidence", weight: "10%" }, // Reduced from 15%
+
+            { type: "Expert verification of significance", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of knowledge advancement", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C7",
+
+          originalCriterion: "Critical Employment",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Technical lead for open-source projects",
+
+            "Community leadership roles",
+
+            "Platform/technology evangelism positions",
+
+            "Standards committee participation",
+
+            "Advisory roles for technical organizations",
+
+            "Founding technical roles in startups",
+
+            "Special project leadership positions"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Role documentation", weight: "Required" },
+
+            { type: "Organization/project significance", weight: "20%" }, // Reduced from 25%
+
+            { type: "Leadership evidence", weight: "20%" }, // Reduced from 25%
+
+            { type: "Impact of contribution", weight: "10%" }, // Reduced from 15%
+
+            { type: "Selection process for role", weight: "10%" }, // Reduced from 15%
+
+            { type: "Expert verification of criticality", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        },
+
+        {
+
+          id: "O1A-C8",
+
+          originalCriterion: "High Salary",
+
+          maxPoints: 25,
+
+          minimumPoints: 0,
+
+          evidenceTypes: [
+
+            "Equity compensation with valuation",
+
+            "Profit-sharing arrangements",
+
+            "Royalty/licensing agreements",
+
+            "Special compensation packages",
+
+            "Non-traditional value exchange",
+
+            "Revenue percentage agreements",
+
+            "User/subscriber-based compensation models"
+
+          ],
+
+          evidenceWeighting: [
+
+            { type: "Compensation documentation", weight: "Required" },
+
+            { type: "Valuation evidence", weight: "20%" }, // Reduced from 25%
+
+            { type: "Comparative value analysis", weight: "20%" }, // Reduced from 25%
+
+            { type: "Expert verification of value", weight: "10%" }, // Reduced from 15%
+
+            { type: "Evidence of exceptional nature", weight: "10%" }, // Reduced from 15%
+
+            { type: "Field-specific context", weight: "10%" } // Reduced from 15%
+
+          ]
+
+        }
+
+      ]
+
+    }
+
+  ],
+
+  thresholds: {
+
+    standardEvidence: [
+
+      {
+
+        likelihood: "Strong Approval",
+
+        pointRange: "60-225", // Reduced from 70-225
+
+        description: "Evidence substantially exceeds requirements, demonstrating overwhelming case. Satisfies at least 4 criteria strongly (20+ pts) or 3 exceptionally (23+ pts)."
+
+      },
+
+      {
+
+        likelihood: "Likely Approval",
+
+        pointRange: "40-59", // Reduced from 45-69
+
+        description: "Evidence clearly meets requirements, presenting a convincing case. Satisfies at least 3 criteria solidly (15+ pts)."
+
+      },
+
+      {
+
+        likelihood: "Borderline Case",
+
+        pointRange: "15-39", // Reduced from 20-44
+
+        description: "Evidence meets minimum requirements but may have weaknesses. Satisfies 3 criteria, quality inconsistent (avg 10-14 pts). High RFE risk."
+
+      },
+
+      {
+
+        likelihood: "Likely Denial",
+
+        pointRange: "0-14", // Reduced from 0-19
+
+        description: "Evidence fails to meet minimum requirements. Fails to satisfy 3 criteria or evidence is weak (<10 pts)."
+
+      }
+
+    ],
+
+    comparableEvidence: [
+
+      {
+
+        likelihood: "Strong Approval",
+
+        pointRange: "55-225", // Reduced from 65-225
+
+        description: "Comparable evidence substantially demonstrates extraordinary ability. Compelling explanation and exceptionally strong evidence (min 20+ pts for 3 criteria)."
+
+      },
+
+      {
+
+        likelihood: "Likely Approval",
+
+        pointRange: "35-54", // Reduced from 40-64
+
+        description: "Comparable evidence clearly demonstrates extraordinary ability. Convincing explanation and strong evidence (min 15+ pts for 3 criteria)."
+
+      },
+
+      {
+
+        likelihood: "Borderline Case",
+
+        pointRange: "10-34", // Reduced from 15-39
+
+        description: "Comparable evidence minimally demonstrates ability. Adequate explanation, inconsistent quality (avg 10-14 pts). High RFE risk."
+
+      },
+
+      {
+
+        likelihood: "Likely Denial",
+
+        pointRange: "0-9", // Reduced from 0-14
+
+        description: "Comparable evidence fails to demonstrate ability. Lacks adequate explanation or evidence is weak (<10 pts)."
+
+      }
+
+    ]
+
+  },
+
+  finalMeritsAdjustmentFactors: [
+
+    {
+
+      factor: "Field Standing",
+
+      pointImpact: "-3 to +3",
+
+      description: "Assessment of beneficiary's standing relative to others. Top tier (global ranking in top 0.1%, +3), accomplished (national recognition, 0 to +2), not top tier (-3 to 0)."
+
+    },
+
+    {
+
+      factor: "Acclaim Consistency",
+
+      pointImpact: "-3 to +3",
+
+      description: "Evaluation of sustained acclaim. Consistent over 10+ years with annual recognition (+3), recent/sporadic (0 to +2), limited/brief (-3 to 0)."
+
+    },
+
+    {
+
+      factor: "Independent Verification",
+
+      pointImpact: "-3 to +3",
+
+      description: "Assessment of independent sources. Strong independent verification (multiple global media sources, +3), limited independent (local media, 0 to +1), primarily self-serving (-3 to 0)."
+
+    },
+
+    {
+
+      factor: "Evidence Relevance",
+
+      pointImpact: "-3 to +3",
+
+      description: "Evaluation of directness to extraordinary ability. Directly related (core to field, +3), somewhat related (0 to +2), tangential/minimal relevance (-3 to 0)."
+
+    }
+
+  ]
+
+};
+
+
+
+return [
+
+  {
+
+    json: {
+
+      webhook: webhookData,
+
+      scoringBlueprint: {
+
+        metadata: {
+
+          title: "ULTIMATE VISA SCORING BLUEPRINT: O-1A VISA CLASSIFICATION",
+
+          versionInfo: "Updated to align with stricter scoring for less qualified profiles, April 2025"
+
+        },
+
+        scoringLogic: JSON.stringify(scoringLogic)
+
+      }
+
+    }
+
+  }
