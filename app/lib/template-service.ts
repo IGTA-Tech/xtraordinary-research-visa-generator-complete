@@ -81,6 +81,19 @@ export const FOREIGN_EMPLOYER_FIELDS: TemplateField[] = [
   { name: 'authorizedActivities', label: 'Description of Authorized Activities', type: 'textarea', required: true, placeholder: 'Describe the specific activities the beneficiary will perform...' },
 ];
 
+// Multiple Engagement fields (same structure as foreign employer)
+export const MULTIPLE_ENGAGEMENT_FIELDS: TemplateField[] = [
+  { name: 'employerName', label: 'Employer/Engager Name', type: 'text', required: true, placeholder: 'Individual or company name' },
+  { name: 'organizationName', label: 'Organization Name', type: 'text', required: true, placeholder: 'Organization name' },
+  { name: 'contactInfo', label: 'Contact Information', type: 'textarea', required: true, placeholder: 'Address, Phone, Email' },
+  { name: 'beneficiaryName', label: 'Beneficiary Full Name', type: 'text', required: true, placeholder: 'Full legal name' },
+  { name: 'activitiesStartDate', label: 'Activities Start Date', type: 'date', required: false },
+  { name: 'activitiesEndDate', label: 'Activities End Date', type: 'date', required: false },
+  { name: 'compensationAmount', label: 'Compensation Amount', type: 'text', required: true, placeholder: 'e.g., 5,000' },
+  { name: 'compensationPeriod', label: 'Compensation Period', type: 'select', required: true, options: ['year', 'month', 'week', 'engagement', 'performance'] },
+  { name: 'authorizedActivities', label: 'Description of Authorized Activities', type: 'textarea', required: true, placeholder: 'Describe the specific activities the beneficiary will perform...' },
+];
+
 // Available templates
 export const TEMPLATES: Template[] = [
   {
@@ -98,6 +111,14 @@ export const TEMPLATES: Template[] = [
     category: 'agreement',
     filePath: 'templates/agreements/foreign-employer-engagement.md',
     fields: FOREIGN_EMPLOYER_FIELDS,
+  },
+  {
+    id: 'multiple-engagement',
+    name: 'Multiple Engagement Agreement',
+    description: 'Agreement for P-1/O-1 visa beneficiaries with multiple engagements, coordinated by petitioner as agent',
+    category: 'agreement',
+    filePath: 'templates/agreements/multiple-engagement-agreement.md',
+    fields: MULTIPLE_ENGAGEMENT_FIELDS,
   },
 ];
 
