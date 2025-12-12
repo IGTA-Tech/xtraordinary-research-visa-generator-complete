@@ -7,6 +7,7 @@ from app.services.documents.doc5_gap_analysis import generate as generate_doc5
 from app.services.documents.doc6_cover_letter import generate as generate_doc6
 from app.services.documents.doc7_checklist import generate as generate_doc7
 from app.services.documents.doc8_exhibit_guide import generate as generate_doc8
+from app.services.documents.doc9_officer_rating import generate_doc9, get_rating_criteria
 
 __all__ = [
     "generate_doc1",
@@ -17,4 +18,6 @@ __all__ = [
     "generate_doc6",
     "generate_doc7",
     "generate_doc8",
+    "generate_doc9",
+    "get_rating_criteria",
 ]
